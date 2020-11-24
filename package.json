@@ -1,0 +1,18 @@
+{
+  "name": "whatsapp-backend",
+  "version": "1.0.0",
+  "description": "this is the first attempt at this, not sure i know what i'm doing",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "author": "Inusah Said",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.15",
+    "nodemon": "^2.0.6"
+  }
+}
