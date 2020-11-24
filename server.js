@@ -8,12 +8,15 @@ const port = process.env.PORT || 9000;
 
 //database config
 const connectionURL =
-	'mongodb+srv://admin:<MVLc3PFMhzEefMcP>@cluster0.umr7e.mongodb.net/<whatsapp-clone-db>?retryWrites=true&w=majority';
-mongoose.connect(connectionURL, {
-	useNewUrlParser: true,
-	useCreateIndex: true,
-	useUnifiedTopology: true,
-});
+	'mongodb+srv://admin:MVLc3PFMhzEefMcP@theghetto.umr7e.mongodb.net/whatsappDB?retryWrites=true&w=majority';
+mongoose
+	.connect(connectionURL, {
+		useNewUrlParser: true,
+		useCreateIndex: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => console.log('hi my nikkkkaaaasss'))
+	.catch((err) => console.error('error is ', err));
 
 //??
 
