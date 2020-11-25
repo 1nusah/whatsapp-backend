@@ -2,6 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import Messages from './dbMessages.js';
+import Pusher from 'pusher';
 //app configs
 const app = express();
 const port = process.env.PORT || 9000;
@@ -19,7 +20,18 @@ mongoose
 	.then(() => console.log('hi my nikkkkaaaasss'))
 	.catch((err) => console.error('error is ', err));
 
-//??
+//Pusher config
+const pusher = new Pusher({
+	appId: '1112722',
+	key: '1b590fcb4646c963f34d',
+	secret: 'f8b0c9d309152372d563',
+	cluster: 'mt1',
+	useTLS: true,
+});
+
+pusher.trigger('my-channel', 'my-event', {
+	message: 'hello world',
+});
 
 //api routes//
 app.get('/api/', (req, res) => res.status(200).send('hello world'));
