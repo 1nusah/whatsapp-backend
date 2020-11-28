@@ -3,11 +3,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Messages from './dbMessages.js';
 import Pusher from 'pusher';
+import cors from 'cors';
 //app configs
 const app = express();
 const port = process.env.PORT || 9000;
 //middleware
 app.use(express.json());
+app.use(cors());
 //database config
 const connectionURL =
 	'mongodb+srv://admin:MVLc3PFMhzEefMcP@theghetto.umr7e.mongodb.net/whatsappDB?retryWrites=true&w=majority';
@@ -32,7 +34,23 @@ const pusher = new Pusher({
 pusher.trigger('my-channel', 'my-event', {
 	message: 'hello world',
 });
+const db = mongoose.connection;
+db.once('open', () => {
+	console.log('DB Connected');
+	const msgCollection = db.collection('messagecontents');
+	const changeStream = msgCollection.watch();
 
+	changeStream.on('change', (change) => {
+		console.log(change);
+		const messageDetails = change.fullDocument;
+		change.operationType === 'insert'
+			? pusher.trigger('messages', 'inserted', {
+					name: messageDetails.name,
+					message: messageDetails.message,
+			  })
+			: console.log('error triggering pusher');
+	});
+});
 //api routes//
 app.get('/api/', (req, res) => res.status(200).send('hello world'));
 
