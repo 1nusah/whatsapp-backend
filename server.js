@@ -58,11 +58,6 @@ db.once('open', () => {
 app.get('/api/', (req, res) => res.status(200).send('hello world'));
 
 //trying to model the messages db
-const chats = mongoose.Model('userChats', {
-	chatID: String,
-	content: String,
-	senderID: String,
-});
 
 // creating the message in the db
 app.post('/api/messages/new', (req, res) => {
