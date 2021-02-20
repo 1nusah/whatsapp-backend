@@ -13,6 +13,7 @@ app.use(cors());
 //database config
 const connectionURL =
 	'mongodb+srv://admin:MVLc3PFMhzEefMcP@theghetto.umr7e.mongodb.net/whatsappDB?retryWrites=true&w=majority';
+
 mongoose
 	.connect(connectionURL, {
 		useNewUrlParser: true,
@@ -55,6 +56,13 @@ db.once('open', () => {
 });
 //api routes//
 app.get('/api/', (req, res) => res.status(200).send('hello world'));
+
+//trying to model the messages db
+const chats = mongoose.Model('userChats', {
+	chatID: String,
+	content: String,
+	senderID: String,
+});
 
 // creating the message in the db
 app.post('/api/messages/new', (req, res) => {
